@@ -1,0 +1,13 @@
+*.ipynb
+*.pyc
+!convert_hdf5_data.ipynb
+!draw_admissible_regions.ipynb
+!process_array_configs.ipynb
+*.txt
+!requirements.txt
+sim_data/
+.venv/
+# packaging
+dist/
+build/
+*.egg-info/

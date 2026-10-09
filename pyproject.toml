@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rx-array-snr-evaluation"
+version = "0.1.2"
+description = "SNR evaluation of MRI receive coil arrays: array noise matching versus preamplifier decoupling."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Wenjun Wang" },
+    { name = "Rasmus Alexander Jepsen" },
+]
+keywords = ["MRI", "receive array", "SNR", "array noise matching", "preamplifier decoupling"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+# 3.10+: the code uses `X | None` annotations. <3.13: numpy<2 (see below) has no 3.13 wheels.
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    # numpy must stay below 2.0: the library uses np.float_ / np.complex_, which NumPy 2 removed.
+    "numpy>=1.26,<2",
+    "h5py>=3.8",
+]
+
+[project.optional-dependencies]
+# Needed only to run the example notebooks in the repository.
+notebooks = [
+    "scikit-rf>=0.30",  # imported as `skrf`
+    "matplotlib>=3.7",
+    "ipython>=8.0",
+    "notebook>=7.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/wenjunhj/array-noise-match-computation"
+Source = "https://github.com/wenjunhj/array-noise-match-computation"
+Issues = "https://github.com/wenjunhj/array-noise-match-computation/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rx_array_snr_evaluation"]
+
+[tool.hatch.build.targets.sdist]
+# Keep the CST simulation files, notebooks and article out of the PyPI source archive.
+include = ["/src", "/README.md", "/LICENSE", "/pyproject.toml"]

@@ -1,0 +1,4 @@
+# Development environment for running the example notebooks: installs the library
+# in editable mode plus the notebook extras defined in pyproject.toml.
+# Python 3.10-3.12 is supported; numpy must stay below 2.0 (see README).
+-e .[notebooks]
